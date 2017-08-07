@@ -591,14 +591,13 @@
               <maxIdleTime>60000</maxIdleTime>
             </connector>
           </connectors>
-          <webXml>${project.build.directory}/generated-webapp/WEB-INF/web.xml</webXml>
-          <webAppSourceDirectory>${project.build.directory}/generated-webapp</webAppSourceDirectory>
+          <webXml>${project.build.directory}/classes/META-INF/webapp/WEB-INF/web.xml</webXml>
+          <webAppSourceDirectory>${project.build.directory}/classes/META-INF/webapp/</webAppSourceDirectory>
           <webAppConfig>
             <contextPath>/client</contextPath>
             <extraClasspath>${project.build.directory}/utilities/scripts/db/;${project.build.directory}/utilities/scripts/db/db/</extraClasspath>
             <webInfIncludeJarPattern>.*/cloud.*jar$|.*/classes/.*</webInfIncludeJarPattern>
           </webAppConfig>
-          
           <systemProperties>
               <systemProperty>
                  <name>log4j.configuration</name>
@@ -665,7 +664,7 @@
                   </filterchain>
                 </copy>
                 <copy overwrite="true" todir="${basedir}/target/conf">
-                  <fileset dir="${basedir}/tomcatconf">
+                  <fileset dir="${basedir}/conf">
                     <include name="*.in"/>
                   </fileset>
                   <globmapper from="*.in" to="*"/>
@@ -676,7 +675,7 @@
                   </filterchain>
                 </copy>
                 <copy overwrite="true" todir="${basedir}/target/conf">
-                  <fileset dir="${basedir}/tomcatconf">
+                  <fileset dir="${basedir}/conf">
                     <exclude name="*.in"/>
                   </fileset>
                 </copy>
