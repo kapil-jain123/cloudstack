@@ -514,6 +514,11 @@
         <artifactId>jetty-annotations</artifactId>
         <version>${cs.jetty.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-security</artifactId>
+        <version>${cs.jetty.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

@@ -61,6 +61,10 @@
       <artifactId>jetty-annotations</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-security</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-yaml</artifactId>
       <version>${cs.jackson.version}</version>
@@ -360,6 +364,7 @@
       <groupId>org.apache.cloudstack</groupId>
       <artifactId>cloud-plugin-outofbandmanagement-driver-nested-cloudstack</artifactId>
       <version>${project.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.cloudstack</groupId>
@@ -383,6 +388,7 @@
       <groupId>org.apache.cloudstack</groupId>
       <artifactId>cloud-framework-ca</artifactId>
       <version>${project.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.cloudstack</groupId>
@@ -543,6 +549,7 @@
       <groupId>org.apache.cloudstack</groupId>
       <artifactId>cloud-plugin-integrations-prometheus-exporter</artifactId>
       <version>${project.version}</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <build>
@@ -558,6 +565,23 @@
               <goal>extract-buildnumber</goal>
             </goals>
             <phase>prepare-package</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.googlecode.todomap</groupId>
+        <artifactId>maven-jettygzip-plugin</artifactId>
+        <version>0.0.4</version>
+        <configuration>
+          <webappDirectory>${project.build.directory}/classes/META-INF/webapp</webappDirectory>
+          <outputDirectory>${project.build.directory}/classes/META-INF/webapp</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>process</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

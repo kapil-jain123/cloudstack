@@ -286,7 +286,6 @@ cp -r client/target/utilities/scripts/db/* ${RPM_BUILD_ROOT}%{_datadir}/%{name}-
 cp client/target/cloud-client-ui-%{_maventag}.jar ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/cloud-management-server.jar
 
 mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/lib
-cp client/target/bcprov-jdk15on-1.55.jar ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/lib/
 
 # Don't package the scripts in the management webapp
 rm -rf ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/webapps/client/WEB-INF/classes/scripts
