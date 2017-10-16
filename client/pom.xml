@@ -61,6 +61,16 @@
       <artifactId>jetty-annotations</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${cs.jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${cs.jackson.version}</version>
+    </dependency>
+    <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <scope>runtime</scope>
@@ -595,7 +605,7 @@
           <webAppSourceDirectory>${project.build.directory}/classes/META-INF/webapp/</webAppSourceDirectory>
           <webAppConfig>
             <contextPath>/client</contextPath>
-            <extraClasspath>${project.build.directory}/utilities/scripts/db/;${project.build.directory}/utilities/scripts/db/db/</extraClasspath>
+            <extraClasspath>${project.build.directory}/conf/;${project.build.directory}/common;${project.build.directory}/utilities/scripts/db/;${project.build.directory}/utilities/scripts/db/db/</extraClasspath>
             <webInfIncludeJarPattern>.*/cloud.*jar$|.*/classes/.*</webInfIncludeJarPattern>
           </webAppConfig>
           <systemProperties>
@@ -617,12 +627,12 @@
             </goals>
             <configuration>
               <target>
-                <copy todir="${project.build.directory}/classes/scripts">
+                <copy todir="${project.build.directory}/common/scripts">
                   <fileset dir="${basedir}/../scripts"/>
                 </copy>
                 <!-- CLOUDSTACK-1304 -->
                 <chmod perm="755"
-                  file="${project.build.directory}/classes/scripts/**" type="both"/>
+                  file="${project.build.directory}/common/scripts/**" type="both"/>
                 <copy todir="${project.build.directory}/classes/META-INF/webapp/WEB-INF/">
                   <fileset dir="${basedir}/WEB-INF/">
                     <include name="web.xml"/>
@@ -692,7 +702,7 @@
               <target if="${noredist}">
                 <echo>test</echo>
                 <replaceregexp
-                  file="${basedir}/target/generated-webapp/WEB-INF/classes/environment.properties"
+                  file="${basedir}/target/conf/environment.properties"
                   match="cloud-stack-components-specification=.*"
                   replace="cloud-stack-components-specification=components-nonoss.xml" byline="true"
                 />
@@ -707,11 +717,11 @@
             </goals>
             <configuration>
               <target if="${noredist}">
-                <replaceregexp file="${basedir}/target/generated-webapp/WEB-INF/web.xml"
+                <replaceregexp file="${basedir}/target/classes/META-INF/webapp/WEB-INF/web.xml"
                   match="classpath:componentContext.xml"
                   replace="classpath:nonossComponentContext.xml" byline="true"/>
                 <copy overwrite="true"
-                  todir="${basedir}/target/generated-webapp/WEB-INF/classes/scripts">
+                  todir="${basedir}/target/common/scripts">
                   <fileset dir="${basedir}/../plugins/network-elements/cisco-vnmc/scripts">
                     <include name="**/*"/>
                   </fileset>
@@ -740,12 +750,6 @@
                   <version>1.9.2</version>
                   <overWrite>false</overWrite>
                   <outputDirectory>${project.build.directory}/pythonlibs</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>org.bouncycastle</groupId>
-                  <artifactId>bcprov-jdk15on</artifactId>
-                  <overWrite>false</overWrite>
-                  <outputDirectory>${project.build.directory}</outputDirectory>
                 </artifactItem>
               </artifactItems>
             </configuration>
@@ -782,7 +786,9 @@
                 </includes>
                 <excludes>
                   <exclude>junit:junit</exclude>
-                  <exclude>org.bouncycastle:bcprov-jdk15on</exclude>
+                  <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
+                  <exclude>org.apache.geronimo.specs:geronimo-servlet_3.0_spec</exclude>
+                  <exclude>org.apache.geronimo.specs:geronimo-javamail_1.4_spec</exclude>
                 </excludes>
               </artifactSet>
               <transformers>
@@ -849,7 +855,7 @@
                 </goals>
                 <configuration>
                   <target>
-                    <copy todir="${basedir}/target/generated-webapp/WEB-INF/classes/vms">
+                    <copy todir="${basedir}/target/common/vms">
                       <fileset dir="${basedir}/../systemvm/dist">
                         <include name="systemvm.zip"/>
                         <include name="systemvm.iso"/>

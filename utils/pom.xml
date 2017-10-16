@@ -166,7 +166,7 @@
     <dependency>
       <groupId>commons-net</groupId>
       <artifactId>commons-net</artifactId>
-      <version>3.5</version>
+      <version>3.6</version>
     </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
@@ -176,6 +176,11 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava-testlib</artifactId>
       <version>${cs.guava-testlib.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-yaml</artifactId>
+      <version>${cs.jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
