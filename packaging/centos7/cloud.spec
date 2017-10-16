@@ -255,7 +255,7 @@ install -D client/target/utilities/bin/cloud-update-xenserver-licenses ${RPM_BUI
 cp -r client/target/utilities/scripts/db/* ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/setup
 
 cp -r client/target/cloud-client-ui-%{_maventag}.jar ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/
-cp -r client/target/classes/META-INF/webapp $(DESTDIR)/usr/share/$(PACKAGE)-management/webapp
+cp -r client/target/classes/META-INF/webapp ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/webapp
 mv ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/cloud-client-ui-%{_maventag}.jar ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/lib/cloudstack.jar
 
 # Don't package the scripts in the management webapp
