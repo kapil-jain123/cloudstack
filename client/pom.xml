@@ -737,6 +737,7 @@
                   <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
                   <exclude>org.apache.geronimo.specs:geronimo-servlet_3.0_spec</exclude>
                   <exclude>org.apache.geronimo.specs:geronimo-javamail_1.4_spec</exclude>
+                  <exclude>mysql:mysql-connector-java</exclude>
                 </excludes>
               </artifactSet>
               <transformers>

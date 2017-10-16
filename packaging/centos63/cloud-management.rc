@@ -71,10 +71,10 @@ setJavaHome() {
 setJavaHome
 
 JARS=$(ls /usr/share/cloudstack-management/lib/*.jar | tr '\n' ':' | sed s'/.$//')
-CLASSPATH="/etc/cloudstack/management:/usr/share/cloudstack-common:/usr/share/cloudstack-management/setup:/usr/share/cloudstack-management:/usr/share/cloudstack-management/cloud-management-server.jar:$JARS"
+CLASSPATH="/etc/cloudstack/management:/usr/share/cloudstack-common:/usr/share/cloudstack-management/setup:/usr/share/cloudstack-management:$JARS:/usr/share/java/mysql-connector-java.jar"
 
-if [ -r "/etc/cloudstack/management/cloudmanagementserver.keystore" ] ; then
-  JAVA_OPTS="-Djava.awt.headless=true -Dcom.sun.management.jmxremote=false -Xmx2g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/cloudstack/management/ -XX:PermSize=512M -XX:MaxPermSize=800m -Djavax.net.ssl.trustStore=/etc/cloudstack/management/cloudmanagementserver.keystore -Djavax.net.ssl.trustStorePassword=vmops.com -Djetty.requestlog=$LOGDIR/request.log "
+if [ -r "/etc/cloudstack/management/cloud.jks" ] ; then
+  JAVA_OPTS="-Djava.awt.headless=true -Dcom.sun.management.jmxremote=false -Xmx2g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/cloudstack/management/ -XX:PermSize=512M -XX:MaxPermSize=800m -Djavax.net.ssl.trustStore=/etc/cloudstack/management/cloud.jks -Djavax.net.ssl.trustStorePassword=vmops.com -Djetty.requestlog=$LOGDIR/request.log "
 else
   JAVA_OPTS="-Djava.awt.headless=true -Dcom.sun.management.jmxremote=false -Xmx2g -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/cloudstack/management/ -XX:PermSize=512M -XX:MaxPermSize=800m -Djetty.requestlog=$LOGDIR/request.log "
 fi
