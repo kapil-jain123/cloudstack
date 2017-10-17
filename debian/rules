@@ -13,7 +13,7 @@ override_dh_auto_configure:
 	echo VERSION=${VERSION} >> replace.properties.tmp
 
 override_dh_auto_build:
-	mvn -T C1.5 clean package -Psystemvm,developer -Dsystemvm \
+	mvn clean package -Psystemvm,developer -Dsystemvm \
 	    -Dcs.replace.properties=replace.properties.tmp \
 	    -Dmaven.repo.local=$(HOME)/.m2/repository \
 	     ${ACS_BUILD_OPTS}
@@ -151,6 +151,9 @@ override_dh_installinit:
 
 override_dh_systemd_enable:
 	dh_systemd_enable -pcloudstack-management -pcloudstack-agent -pcloudstack-usage
+
+override_dh_strip_nondeterminism:
+	# Disable dh_strip_nondeterminism to speed up the build
 
 override_dh_installdocs:
 	dh_installdocs -A tools/whisker/LICENSE tools/whisker/NOTICE INSTALL.md
