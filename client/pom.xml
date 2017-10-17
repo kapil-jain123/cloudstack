@@ -38,22 +38,6 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlets</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-jmx</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-util</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
     </dependency>
     <dependency>
@@ -62,7 +46,11 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-security</artifactId>
+      <artifactId>jetty-jmx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
@@ -531,12 +519,22 @@
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
         <version>${cs.jetty.version}</version>
-         <dependencies>
+        <dependencies>
           <!-- specify the dependent jdbc driver here -->
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${cs.mysql.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${cs.bcprov.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>${cs.bcprov.version}</version>
           </dependency>
         </dependencies>
         <configuration>
@@ -699,6 +697,18 @@
                   <overWrite>false</overWrite>
                   <outputDirectory>${project.build.directory}/pythonlibs</outputDirectory>
                 </artifactItem>
+                <artifactItem>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcpkix-jdk15on</artifactId>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </artifactItem>
               </artifactItems>
             </configuration>
           </execution>
@@ -734,9 +744,17 @@
                 </includes>
                 <excludes>
                   <exclude>junit:junit</exclude>
+                  <exclude>com.tngtech.java:junit-dataprovider</exclude>
+                  <exclude>org.mockito:mockito-all</exclude>
+                  <exclude>org.hamcrest:hamcrest-all</exclude>
+                  <exclude>org.powermock:powermock-module-junit4</exclude>
+                  <exclude>org.powermock:powermock-api-mockito</exclude>
+                  <exclude>org.springframework:spring-test</exclude>
                   <exclude>org.apache.tomcat.embed:tomcat-embed-core</exclude>
                   <exclude>org.apache.geronimo.specs:geronimo-servlet_3.0_spec</exclude>
                   <exclude>org.apache.geronimo.specs:geronimo-javamail_1.4_spec</exclude>
+                  <exclude>org.bouncycastle:bcprov-jdk15on</exclude>
+                  <exclude>org.bouncycastle:bcpkix-jdk15on</exclude>
                   <exclude>mysql:mysql-connector-java</exclude>
                 </excludes>
               </artifactSet>
@@ -763,6 +781,7 @@
                     <exclude>META-INF/*.DSA</exclude>
                     <exclude>META-INF/*.RSA</exclude>
                     <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>META-INF/maven/**</exclude>
                   </excludes>
                 </filter>
               </filters>
