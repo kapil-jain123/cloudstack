@@ -15,11 +15,29 @@
 # specific language governing permissions and limitations
 # under the License.
 
-listen.interface=0.0.0.0
+# The binding interface used by the management server
+bind.interface=0.0.0.0
+
+# The service context path where URL requests should be served
+context.path=/client
+
+# The HTTP port to be used by the management server
 http.port=8080
+
+# Options to configure and enable HTTPS on management server
+#
+# For management server to pickup these configuration settings, the configured
+# keystore file should exists and be readable by the management server.
+https.enable=false
 https.port=8443
-keystore.file=/etc/cloudstack/management/cert.jks
-keystore.password=vmops.com
+# The keystore and manager passwords are assumed to be same.
+# For production environments, create and use a separate keystore file than the
+# default `cloud.jks` file that is used internally by the management server.
+https.keystore=/etc/cloudstack/management/cloud.jks
+https.keystore.password=vmops.com
+
+# The path to webapp directory
 webapp.dir=/usr/share/cloudstack-management/webapp
-log.dir=/var/log/cloudstack/management/
-access.log.file=/var/log/cloudstack/management/access.log
+
+# The path to access log file
+access.log=/var/log/cloudstack/management/access.log
