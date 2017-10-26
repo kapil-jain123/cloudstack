@@ -294,7 +294,7 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/%{name}-management/webapps/client/WEB-INF/cl
 
 cp client/target/classes/META-INF/webapp/WEB-INF/web.xml ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/management
 
-for name in db.properties log4j-cloud.xml commons-logging.properties environment.properties java.security.ciphers
+for name in db.properties server.properties log4j-cloud.xml commons-logging.properties environment.properties java.security.ciphers
 do
   cp client/target/conf/$name ${RPM_BUILD_ROOT}%{_sysconfdir}/%{name}/management/$name
 done
@@ -524,6 +524,7 @@ pip install --upgrade /usr/share/cloudstack-marvin/Marvin-*.tar.gz
 %dir %attr(0770,root,cloud) %{_localstatedir}/log/%{name}/management
 %config(noreplace) %{_sysconfdir}/sudoers.d/%{name}-management
 %config(noreplace) %attr(0640,root,cloud) %{_sysconfdir}/%{name}/management/db.properties
+%config(noreplace) %attr(0640,root,cloud) %{_sysconfdir}/%{name}/management/server.properties
 %config(noreplace) %{_sysconfdir}/%{name}/management/log4j-cloud.xml
 %config(noreplace) %{_sysconfdir}/%{name}/management/log4j.xml
 %config(noreplace) %{_sysconfdir}/%{name}/management/web.xml
